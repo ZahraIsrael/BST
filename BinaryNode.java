@@ -2,8 +2,10 @@ public class BinaryNode{
     private BinaryNode left, right;
     private Comparable value;
     
-    public BinaryNode(String c){
+    public BinaryNode(Integer c){
         value = c;
+        left = null;
+        right = null;
     }
     
     public BinaryNode left(){
@@ -24,6 +26,9 @@ public class BinaryNode{
     
     public Comparable getValue(){
         return value;
+    }
+    public void setValue(Comparable x){
+        value = x;
     }
     
     public String toString(){
