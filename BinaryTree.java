@@ -29,7 +29,7 @@ public class BinaryTree{
                 add(parent.left(), a);
             }
             
-        }else{
+        }else if(a.getValue().compareTo(parent.getValue()) > 0){
             if(parent.right()==null){
                 parent.setRight(a);
             }else{
