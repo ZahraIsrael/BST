@@ -2,61 +2,82 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class BinaryTreeFrame extends JFrame implements ActionListener {
+public class BinaryTreeFrame extends JFrame  {
 	private static final int WIDTH = 1200;
 	private static final int HEIGHT = 480;
-	private JButton add, delete;
-	private JTextField text;
-	private BinaryTree tree;
+	public static BinaryTree tree = new BinaryTree();
 	
 	public BinaryTreeFrame(String framename) {
 		
+
 		super(framename);
-		tree= GraphicBinaryTreeRunner.tree;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(WIDTH, HEIGHT);
 		BinaryTreePanel p = new BinaryTreePanel();
-		add(p);
-		p.setLayout(null);
+        add(p);
 		
-		add = new JButton("ADD");
-        p.add(add);
-        delete = new JButton("DELETE");
+        p.setLayout(null);
+       
+        
+        JTextField text = new JTextField();
+        p.add(text);
+
+        JButton delete = new JButton("delete");
+        
+       
+
+        JButton add = new JButton("add");
         p.add(delete);
-		text = new JTextField("");
-		p.add(text);
-		
-		setVisible(true);
-		add.setBounds(10, 10, 100, 25);
-        delete.setBounds(125, 10, 100, 25);
-        text.setBounds(10, 50, 100, 25);
-		
+        p.add(add);
+
+        setVisible(true);
+       
+        add.setBounds(20, 10, 50, 20);
+        delete.setBounds(20, 35, 50, 20);
+        text.setBounds(80, 22, 50, 20);
 		add.addActionListener(new ActionListener() {
-		            public void actionPerformed(ActionEvent e){ 
-		            	String x = text.getText();
-		            	BinaryNode a = new BinaryNode(x);
-		                tree.add(a);
-		                System.out.println("a");
-		            } 
-		            
-		        }); 
-		
-		delete.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e){ 
-            	String x = text.getText();
-            	BinaryNode a = new BinaryNode(x);
-                tree.remove(a.getValue());
-                System.out.println("d");
-            } 
-            
-        }); 
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+				
+                String x = text.getText();
+                if(e.getSource()==add){
+					if(x.length()>0)
+                    tree.add(new BinaryNode(Integer.parseInt(x)));
+
+                    text.setText("");
+					p.revalidate();
+                    p.repaint();
+					System.out.println(tree.levelOrder());
+
+
+
+                }
+                
+            }
+        });
+        delete.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String x = text.getText();
+				
+
+                if(e.getSource()==delete){
+					if(x.length()>0)
+                    tree.remove(Integer.parseInt(x));
+                    text.setText("");
+                    p.repaint();
+                }
+                
+            }
+        });
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	// @Override
+	// public void actionPerformed(ActionEvent e) {
+	// 	// TODO Auto-generated method stub
+	// 	//throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+	// }
 	
 }
